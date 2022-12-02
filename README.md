@@ -18,7 +18,7 @@ This is a template to make C#/.NET projects using Visual Studio Code.
 
 ## Rename the template project names
 
-Search for all occurrences of `MyProject` and replace them with your own projects name.
+Search for all occurrences of `AdventOfCode` and replace them with your own projects name.
 
 ## Project Structure
 
