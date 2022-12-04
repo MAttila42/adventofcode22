@@ -7,15 +7,24 @@ public class Program
 		// Day 1 - Calorie Counting
 		CalorieCounting d1 = new();
 		Console.WriteLine(
-			$"The most calories an elf carries is {d1.PartOne()}."
+			"Day One"
 		);
 		Console.WriteLine(
-			$"The top 3 elves carry {d1.PartTwo()} calories.\n"
+			$"\tPart One - {d1.PartOne()}"
+		);
+		Console.WriteLine(
+			$"\tPart Two - {d1.PartTwo()}"
 		);
 
 		// Day 2 - Rock Paper Scissors
 		Console.WriteLine(
-			$"My total score would be {RockPaperScissors.Answer()}."
+			"\nDay Two"
+		);
+		Console.WriteLine(
+			$"\tPart One - {RockPaperScissors.PartOne()}"
+		);
+		Console.WriteLine(
+			$"\tPart Two - {RockPaperScissors.PartTwo()}"
 		);
 	}
 }
