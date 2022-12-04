@@ -1,19 +1,31 @@
 namespace AdventOfCode;
 
-class CalorieCounting
+public class CalorieCounting
 {
-	public static int Answer()
+	private readonly List<int> elves;
+
+	public CalorieCounting()
 	{
-		List<int> elves = new() { 0 };
-		using StreamReader reader = new("src/CalorieCounting/source.txt");
+		this.elves = new List<int>() { 0 };
+
+		using StreamReader reader = new(
+			"src/CalorieCounting/source.txt");
+
 		while (!reader.EndOfStream)
 		{
 			string line = reader.ReadLine().Trim();
 			if (line != "")
-				elves[^1] += int.Parse(line);
+				this.elves[^1] += int.Parse(line);
 			else
-				elves.Add(0);
+				this.elves.Add(0);
 		}
-		return elves.Max();
+
+		this.elves = this.elves.OrderDescending().ToList();
 	}
+
+	public int PartOne() =>
+		this.elves[1];
+
+	public int PartTwo() =>
+		this.elves[0] + this.elves[1] + this.elves[2];
 }
