@@ -45,5 +45,8 @@ public class Program
 		Console.WriteLine(
 			$"\tPart One - {CampCleanup.PartOne()}"
 		);
+		Console.WriteLine(
+			$"\tPart Two - {CampCleanup.PartTwo()}"
+		);
 	}
 }
