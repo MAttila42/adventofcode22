@@ -34,5 +34,8 @@ public class Program
 		Console.WriteLine(
 			$"\tPart One - {RucksackReorganization.PartOne()}"
 		);
+		Console.WriteLine(
+			$"\tPart Two - {RucksackReorganization.PartTwo()}"
+		);
 	}
 }
