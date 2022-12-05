@@ -37,5 +37,13 @@ public class Program
 		Console.WriteLine(
 			$"\tPart Two - {RucksackReorganization.PartTwo()}"
 		);
+
+		// Day 4 - Camp Cleanup
+		Console.WriteLine(
+			"\nDay Four"
+		);
+		Console.WriteLine(
+			$"\tPart One - {CampCleanup.PartOne()}"
+		);
 	}
 }
