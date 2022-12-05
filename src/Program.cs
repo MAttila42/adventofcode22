@@ -26,5 +26,13 @@ public class Program
 		Console.WriteLine(
 			$"\tPart Two - {RockPaperScissors.PartTwo()}"
 		);
+
+		// Day 3 - Rucksack Reorganization
+		Console.WriteLine(
+			"\nDay Three"
+		);
+		Console.WriteLine(
+			$"\tPart One - {RucksackReorganization.PartOne()}"
+		);
 	}
 }
