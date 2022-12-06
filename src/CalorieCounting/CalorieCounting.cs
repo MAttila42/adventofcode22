@@ -24,7 +24,7 @@ public class CalorieCounting
 	}
 
 	public int PartOne() =>
-		this.elves[1];
+		this.elves[0];
 
 	public int PartTwo() =>
 		this.elves[0] + this.elves[1] + this.elves[2];
