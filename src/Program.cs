@@ -57,5 +57,8 @@ public class Program
 		Console.WriteLine(
 			$"\tPart One - {d5.PartOne()}"
 		);
+		Console.WriteLine(
+			$"\tPart Two - {d5.PartTwo()}"
+		);
 	}
 }
