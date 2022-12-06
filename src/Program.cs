@@ -48,5 +48,14 @@ public class Program
 		Console.WriteLine(
 			$"\tPart Two - {CampCleanup.PartTwo()}"
 		);
+
+		// Day 5 - Supply Stacks
+		SupplyStacks d5 = new();
+		Console.WriteLine(
+			"\nDay Five"
+		);
+		Console.WriteLine(
+			$"\tPart One - {d5.PartOne()}"
+		);
 	}
 }
