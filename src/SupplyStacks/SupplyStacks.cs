@@ -4,33 +4,37 @@ namespace AdventOfCode;
 
 public class SupplyStacks
 {
-	List<List<char>> columns;
-	List<Step> steps;
+	private readonly List<List<char>> columns;
+	private readonly List<Step> steps;
+
+	private readonly string[] source;
+	private readonly int separatorLineIndex;
 
 	public SupplyStacks()
 	{
 		this.columns = new();
 		this.steps = new();
 
-		string[] source = File.ReadAllLines(
+		this.source = File.ReadAllLines(
 			"src/SupplyStacks/source.txt");
-		int separatorLineIndex = Array.IndexOf(
+		this.separatorLineIndex = Array.IndexOf(
 			source,
 			source.First(string.IsNullOrWhiteSpace));
 
-		LoadColumns(source, separatorLineIndex);
-		LoadSteps(source, separatorLineIndex);
+		LoadSteps();
 	}
 
 	public string PartOne()
 	{
+		LoadColumns();
+
 		foreach (Step step in this.steps)
 			for (int i = 0; i < step.Count; i++)
 			{
-				char crate = this.columns[step.From - 1].Last();
+				List<char> columnFrom = this.columns[step.From - 1];
+				char crate = columnFrom.Last();
 				this.columns[step.To - 1].Add(crate);
-				this.columns[step.From - 1].RemoveAt(
-					this.columns[step.From - 1].Count - 1);
+				columnFrom.RemoveAt(columnFrom.Count - 1);
 			}
 
 		StringBuilder sb = new();
@@ -40,13 +44,36 @@ public class SupplyStacks
 		return sb.ToString();
 	}
 
-	private void LoadColumns(string[] source, int separatorLineIndex)
+	public string PartTwo()
 	{
-		int numberOfColumns = source[separatorLineIndex - 1][^2] - '0';
+		LoadColumns();
+
+		foreach (Step step in this.steps)
+			for (int i = 0; i < step.Count; i++)
+			{
+				List<char> columnFrom = this.columns[step.From - 1];
+				List<char> columnTo = this.columns[step.To - 1];
+				char crate = columnFrom.Last();
+				columnTo.Insert(columnTo.Count - i, crate);
+				columnFrom.RemoveAt(columnFrom.Count - 1);
+			}
+
+		StringBuilder sb = new();
+		foreach (char crate in this.columns.Select(c => c.Last()))
+			sb.Append(crate);
+
+		return sb.ToString();
+	}
+
+	private void LoadColumns()
+	{
+		this.columns.Clear();
+
+		int numberOfColumns = this.source[this.separatorLineIndex - 1][^2] - '0';
 		for (int i = 0; i < numberOfColumns; i++)
 			this.columns.Add(new());
 
-		foreach (string line in source.Take(separatorLineIndex - 1))
+		foreach (string line in this.source.Take(this.separatorLineIndex - 1))
 		{
 			byte currentColumn = 0;
 			for (int i = 1; i < line.Length; i += 4)
@@ -58,9 +85,9 @@ public class SupplyStacks
 		}
 	}
 
-	private void LoadSteps(string[] source, int separatorLineIndex)
+	private void LoadSteps()
 	{
-		foreach (string line in source.Skip(separatorLineIndex + 1))
+		foreach (string line in this.source.Skip(this.separatorLineIndex + 1))
 			this.steps.Add(new Step(line));
 	}
 }
