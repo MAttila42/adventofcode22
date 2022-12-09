@@ -60,5 +60,13 @@ public class Program
 		Console.WriteLine(
 			$"\tPart Two - {d5.PartTwo()}"
 		);
+
+		// Day 6 - Tuning Trouble
+		Console.WriteLine(
+			"\nDay Six"
+		);
+		Console.WriteLine(
+			$"\tPart One - {TuningTrouble.PartOne()}"
+		);
 	}
 }
