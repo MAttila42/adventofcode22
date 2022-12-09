@@ -23,18 +23,14 @@ public class NoSpaceLeftOnDevice
 		{
 			string[] m = reader.ReadLine().Split();
 
-			if (m[0] == "$")
+			if (m[1] == "cd")
 			{
-				if (m[1] == "cd")
+				if (m[2] == "..")
+					this.currentPath.Pop();
+				else
 				{
-					string dir = m[2];
-					if (dir == "..")
-						this.currentPath.Pop();
-					else
-					{
-						this.currentPath.Push(dir);
-						this.directories.Add(this.PathStr, 0);
-					}
+					this.currentPath.Push(m[2]);
+					this.directories.Add(this.PathStr, 0);
 				}
 			}
 			else
