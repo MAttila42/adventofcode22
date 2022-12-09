@@ -72,5 +72,13 @@ public class Program
 		Console.WriteLine(
 			$"\tPart Two - {d6.PartTwo()}"
 		);
+
+		// Day 7 - No Space Left On Device
+		Console.WriteLine(
+			"\nDay Seven"
+		);
+		Console.WriteLine(
+			$"\tPart One - {NoSpaceLeftOnDevice.PartOne()}"
+		);
 	}
 }
