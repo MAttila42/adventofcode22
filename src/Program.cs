@@ -74,11 +74,15 @@ public class Program
 		);
 
 		// Day 7 - No Space Left On Device
+		NoSpaceLeftOnDevice d7 = new();
 		Console.WriteLine(
 			"\nDay Seven"
 		);
 		Console.WriteLine(
-			$"\tPart One - {NoSpaceLeftOnDevice.PartOne()}"
+			$"\tPart One - {d7.PartOne()}"
+		);
+		Console.WriteLine(
+			$"\tPart Two - {d7.PartTwo()}"
 		);
 	}
 }

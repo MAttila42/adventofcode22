@@ -2,18 +2,26 @@ namespace AdventOfCode;
 
 public class NoSpaceLeftOnDevice
 {
-	public static int PartOne()
+	private readonly Dictionary<string, int> directories;
+	private readonly Stack<string> currentPath;
+
+	private string PathStr =>
+		string.Join("/", this.currentPath.Reverse());
+
+	public NoSpaceLeftOnDevice()
+	{
+		this.directories = new();
+		this.currentPath = new();
+	}
+
+	public int PartOne()
 	{
 		using StreamReader reader = new(
 			"src/NoSpaceLeftOnDevice/source.txt");
 
-		Dictionary<string, int> directorySizes = new();
-		Stack<string> currentPath = new();
-
 		while (!reader.EndOfStream)
 		{
 			string[] m = reader.ReadLine().Split();
-			string pathStr = string.Join("/", currentPath.Reverse());
 
 			if (m[0] == "$")
 			{
@@ -21,25 +29,33 @@ public class NoSpaceLeftOnDevice
 				{
 					string dir = m[2];
 					if (dir == "..")
-						currentPath.Pop();
+						this.currentPath.Pop();
 					else
 					{
-						currentPath.Push(dir);
-						directorySizes.Add($"{pathStr}/{dir}", 0);
+						this.currentPath.Push(dir);
+						this.directories.Add(this.PathStr, 0);
 					}
 				}
 			}
 			else
 			{
 				if (int.TryParse(m[0], out int size))
-					foreach (string directory in directorySizes.Select(d => d.Key))
-						if (pathStr.StartsWith(directory))
-							directorySizes[directory] += size;
+					foreach (string directory in this.directories.Select(d => d.Key))
+						if (this.PathStr.StartsWith(directory))
+							this.directories[directory] += size;
 			}
 		}
 
-		return directorySizes
+		return directories
 			.Where(d => d.Value <= 100000)
 			.Sum(d => d.Value);
+	}
+
+	public int PartTwo()
+	{
+		int freeUp = this.directories["/"] - 40000000;
+		return this.directories
+			.Where(d => d.Value >= freeUp)
+			.Min(d => d.Value);
 	}
 }
