@@ -4,16 +4,16 @@ public class TreetopTreeHouse
 {
 	private readonly int[,] trees;
 
-	private readonly int rowCount;
 	private readonly int columnCount;
+	private readonly int rowCount;
 
 	public TreetopTreeHouse()
 	{
 		string[] source = File.ReadAllLines(
 			"src/TreetopTreeHouse/source.txt");
 
-		this.rowCount = source.Length;
 		this.columnCount = source[0].Length;
+		this.rowCount = source.Length;
 
 		this.trees = new int[this.columnCount, this.rowCount];
 
@@ -25,13 +25,20 @@ public class TreetopTreeHouse
 	public int PartOne()
 	{
 		int visibleCount = 0;
-
 		for (int y = 0; y < this.rowCount; y++)
 			for (int x = 0; x < this.columnCount; x++)
 				if (!IsHidden(x, y))
 					visibleCount++;
-
 		return visibleCount;
+	}
+
+	public int PartTwo()
+	{
+		int maxScore = 0;
+		for (int y = 0; y < this.rowCount; y++)
+			for (int x = 0; x < this.columnCount; x++)
+				maxScore = Math.Max(maxScore, ScenicScore(x, y));
+		return maxScore;
 	}
 
 	public void Draw()
@@ -44,13 +51,6 @@ public class TreetopTreeHouse
 					Console.ForegroundColor = ConsoleColor.Red;
 				else
 					Console.ForegroundColor = ConsoleColor.Green;
-
-				if (x == 0 && y == 97)
-				{ }
-
-				if (x == 2 && y == 97)
-				{ }
-
 				Console.Write(this.trees[x, y]);
 			}
 			Console.WriteLine();
@@ -59,22 +59,13 @@ public class TreetopTreeHouse
 
 	private bool IsHidden(int x, int y)
 	{
-		if (x == 0 && y == 97)
-		{ }
-
-		if (x == 2 && y == 97)
-		{ }
-
 		int treeHeight = this.trees[x, y];
 
-		if (x == 0 ||
-			y == 0 ||
-			x == this.columnCount - 1 ||
-			y == this.rowCount - 1)
+		if (IsOnEdge(x, y))
 			return false;
 
-		int[] row = GetRow(y);
 		int[] column = GetColumn(x);
+		int[] row = GetRow(y);
 
 		if (!row.Take(x).Any(t => t >= treeHeight))
 			return false;
@@ -87,6 +78,51 @@ public class TreetopTreeHouse
 
 		return true;
 	}
+
+	private int ScenicScore(int x, int y)
+	{
+		if (x == 2 && y == 3)
+		{ }
+
+		if (IsOnEdge(x, y))
+			return 0;
+
+		int treeHeight = this.trees[x, y];
+		int[] column = GetColumn(x);
+		int[] row = GetRow(y);
+		List<int[]> directions = new();
+		List<int> visibleTreeCounts = new();
+
+		directions.Add(row.Take(x).Reverse().ToArray());
+		directions.Add(row.Skip(x + 1).ToArray());
+		directions.Add(column.Take(y).Reverse().ToArray());
+		directions.Add(column.Skip(y + 1).ToArray());
+
+		foreach (int[] direction in directions)
+		{
+			int n = 0;
+			foreach (int tree in direction)
+			{
+				n++;
+				if (tree >= treeHeight || n == direction.Length)
+				{
+					visibleTreeCounts.Add(n);
+					break;
+				}
+			}
+		}
+
+		int score = visibleTreeCounts.First();
+		foreach (int visibleTreeCount in visibleTreeCounts.Skip(1))
+			score *= visibleTreeCount;
+
+		return score;
+	}
+
+	private bool IsOnEdge(int x, int y) =>
+		x == 0 || y == 0 ||
+		x == this.columnCount - 1 ||
+		y == this.rowCount - 1;
 
 	private int[] GetRow(int y)
 	{

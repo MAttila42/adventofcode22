@@ -94,5 +94,8 @@ public class Program
 			$"\tPart One - {d8.PartOne()}"
 		);
 		// d8.Draw();
+		Console.WriteLine(
+			$"\tPart Two - {d8.PartTwo()}"
+		);
 	}
 }
