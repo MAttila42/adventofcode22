@@ -84,5 +84,15 @@ public class Program
 		Console.WriteLine(
 			$"\tPart Two - {d7.PartTwo()}"
 		);
+
+		// Day 8 - TreetopTreeHouse
+		TreetopTreeHouse d8 = new();
+		Console.WriteLine(
+			"\nDay Eight"
+		);
+		Console.WriteLine(
+			$"\tPart One - {d8.PartOne()}"
+		);
+		// d8.Draw();
 	}
 }
