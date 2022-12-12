@@ -97,5 +97,14 @@ public class Program
 		Console.WriteLine(
 			$"\tPart Two - {d8.PartTwo()}"
 		);
+
+		// Day 9 - Rope Bridge
+		RopeBridge d9 = new();
+		Console.WriteLine(
+			"\nDay Nine"
+		);
+		Console.WriteLine(
+			$"\tPart One - {d9.PartOne()}"
+		);
 	}
 }
