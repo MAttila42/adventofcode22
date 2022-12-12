@@ -106,5 +106,8 @@ public class Program
 		Console.WriteLine(
 			$"\tPart One - {d9.PartOne()}"
 		);
+		Console.WriteLine(
+			$"\tPart Two - {d9.PartTwo()}"
+		);
 	}
 }

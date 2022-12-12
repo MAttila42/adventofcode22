@@ -2,26 +2,28 @@ namespace AdventOfCode;
 
 public class RopeBridge
 {
-	private readonly HashSet<string> visitedCoords; // "x y"
 	private readonly List<string> commands;
 
 	public RopeBridge()
 	{
-		this.visitedCoords = new();
 		this.commands = File.ReadAllLines(
 			"src/RopeBridge/source.txt"
 		).ToList();
-		Simulate();
 	}
 
 	public int PartOne() =>
-		this.visitedCoords.Count;
+		GetVisitedCoordsCount(2);
 
-	private void Simulate()
+	public int PartTwo() =>
+		GetVisitedCoordsCount(10);
+
+	private int GetVisitedCoordsCount(int knotCount)
 	{
-		// x, y
-		int[] headCoord = { 0, 0 };
-		int[] tailCoord = { 0, 0 };
+		HashSet<string> visitedCoords = new(); // "x y"
+
+		List<int[]> knotCoords = new();
+		for (int i = 0; i < knotCount; i++)
+			knotCoords.Add(new[] { 0, 0 }); // x, y
 
 		foreach (string command in this.commands)
 		{
@@ -34,27 +36,31 @@ public class RopeBridge
 				switch (direction)
 				{
 					case "U":
-						headCoord[1]++;
+						knotCoords.First()[1]++;
 						break;
 					case "D":
-						headCoord[1]--;
+						knotCoords.First()[1]--;
 						break;
 					case "L":
-						headCoord[0]--;
+						knotCoords.First()[0]--;
 						break;
 					case "R":
-						headCoord[0]++;
+						knotCoords.First()[0]++;
 						break;
 				}
-				tailCoord = GetNewTailCoord(
-					headCoord,
-					tailCoord
-				);
-				this.visitedCoords.Add(
-					$"{tailCoord[0]} {tailCoord[1]}"
+				for (int j = 1; j < knotCoords.Count; j++)
+				{
+					knotCoords[j] = GetNewTailCoord(
+						knotCoords[j - 1],
+						knotCoords[j]
+					);
+				}
+				visitedCoords.Add(
+					string.Join(" ", knotCoords.Last())
 				);
 			}
 		}
+		return visitedCoords.Count;
 	}
 
 	private static int[] GetNewTailCoord(int[] headCoord, int[] tailCoord)
