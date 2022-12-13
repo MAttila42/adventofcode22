@@ -118,5 +118,6 @@ public class Program
 		Console.WriteLine(
 			$"\tPart One - {d10.PartOne()}"
 		);
+		d10.PartTwo();
 	}
 }

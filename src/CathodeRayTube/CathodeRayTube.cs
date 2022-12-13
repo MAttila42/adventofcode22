@@ -34,4 +34,26 @@ public class CathodeRayTube
 			sum += this.cycles[i] * i;
 		return sum;
 	}
+
+	public void PartTwo()
+	{
+		for (int i = 0; i < 40 * 6; i++)
+		{
+			int[] spritePositions =
+			{
+				this.cycles[i + 1] - 1,
+				this.cycles[i + 1],
+				this.cycles[i + 1] + 1
+			};
+
+			int pos = i % 40;
+			if (spritePositions.Contains(pos))
+				Console.Write("#");
+			else
+				Console.Write(".");
+
+			if (i % 40 == 39)
+				Console.WriteLine();
+		}
+	}
 }
