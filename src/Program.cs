@@ -109,5 +109,14 @@ public class Program
 		Console.WriteLine(
 			$"\tPart Two - {d9.PartTwo()}"
 		);
+
+		// Day 10 - Cathode-Ray Tube
+		CathodeRayTube d10 = new();
+		Console.WriteLine(
+			"\nDay Ten"
+		);
+		Console.WriteLine(
+			$"\tPart One - {d10.PartOne()}"
+		);
 	}
 }
